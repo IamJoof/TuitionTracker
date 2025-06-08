@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -49,4 +50,21 @@ class User extends Authenticatable
 
 
     //Relationships to other tables can be found here
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payments::class);
+    }
+
+    public function createdStudentFees(): HasMany
+    {
+        return $this->hasMany(StudentFees::class);
+    }
+
+    public function activityLogs(): HasMany
+    {
+        return $this->hasMany(ActivityLogs::class);
+    }
+
+    
 }

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class StudentLedger extends Model
 {
@@ -34,4 +36,24 @@ class StudentLedger extends Model
 
 
     //Relationship with other tables here
+
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Students::class);
+    }
+
+    public function studentLedger(): BelongsTo
+    {
+        return $this->belongsTo(StudentLedger::class);
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by_user_id');
+    }
+
+    public function paymentAllocations(): HasMany   
+    {
+        return $this->hasMany(PaymentAllocations::class);
+    }
 }

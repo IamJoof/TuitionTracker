@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AcademicYear extends Model
 {
@@ -28,4 +29,19 @@ class AcademicYear extends Model
     }
 
     // Relationship with other table is here
+
+    public function studentFees(): HasMany
+    {
+        return $this->hasMany(related: StudentFees::class);
+    }
+
+    public function studentLedger(): HasMany
+    {
+        return $this->hasMany(related: StudentLedger::class);
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(related: Payments::class);
+    }
 }

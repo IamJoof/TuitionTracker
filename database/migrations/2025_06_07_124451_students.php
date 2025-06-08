@@ -16,9 +16,9 @@ return new class extends Migration
 
             $table->id();
 
-            $table->string('lrn_number')->unique()->nullable()->comment(`Learner's Reference Number`);
+            $table->string('lrn_number')->unique()->nullable()->comment('Learner Referrence Number');
 
-            $table->string('student_id_number')->unique()->comment(`Student's School Id Number`);
+            $table->string('student_id_number')->unique()->comment('Student School Identification Number');
 
             $table->string('first_name');
 
@@ -26,18 +26,28 @@ return new class extends Migration
 
             $table->string('last_name');
 
+            $table->string('suffix')->nullable();
+
             $table->date('date_of_birth');
 
-            $table->string('gender');
+            $table->enum('gender',['male','female']);
 
             $table->string('year_level');
 
             $table->string('status');
 
+            $table->string('contact_number')->nullable();
+
             $table->boolean('is_discounted')->default(false);
 
-            $table->date('date_of_birth');
+            $table->text('address')->nullable();
 
+            //Foreign Keys and Indexes
+            $table->foreignId('created_by_user_id')->nullable()->constrained('users')->onDelete('set null');
+
+            $table->foreignId('current_academic_year_id')->nullable()->constrained('academic_years')->onDelete('set null');
+
+            
             $table->timestamps();
         });
     }
@@ -47,6 +57,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('students');
     }
 };

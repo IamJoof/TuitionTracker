@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Payments extends Model
 {
@@ -28,5 +30,27 @@ class Payments extends Model
 
     //Relationships to other tables and functions for API purposes
 
-    
+
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Students::class);
+    }
+
+    public function processor(): BelongsTo{
+        return $this->belongsTo(User::class);
+    }
+
+    public function academicYear(): BelongsTo{
+        return $this->belongsTo(AcademicYear::class);
+    }
+
+    public function allocations(): HasMany
+    {
+        return $this->hasMany(PaymentAllocations::class);
+    }
+
+    public function activityLogs(): HasMany
+    {
+        return $this->hasMany(ActivityLogs::class);
+    }
 }
