@@ -32,7 +32,7 @@ return new class extends Migration
 
             $table->enum('gender',['male','female']);
 
-            $table->string('year_level');
+            $table->enum('year_level',['pre-elementary', 'elementary', 'junior_high', 'senior_high']);
 
             $table->string('status');
 
