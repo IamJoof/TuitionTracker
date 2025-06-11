@@ -18,3 +18,8 @@ Route::middleware('auth:sanctum')->group(function() {
         return response()->json(['message' => 'Welcome, Admin Popots']);
     })->middleware('can:is_admin');
 });
+
+Route::prefix('students')->group(function() {
+    Route::post('/', [App\Http\Controllers\API\StudentController::class, 'store']);
+    Route::get('{student}/age', [App\Http\Controllers\API\StudentController::class, 'calculateStudentAge']);
+});
