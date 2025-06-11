@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Contracts\StudentRepositoryInterface;
+use App\Repositories\EloquentStudentRepository;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -13,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
+        $this->app->bind(StudentRepositoryInterface::class, EloquentStudentRepository::class);
     }
 
     /**
