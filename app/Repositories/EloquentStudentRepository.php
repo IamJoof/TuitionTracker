@@ -2,15 +2,16 @@
 
 namespace App\Repositories;
 
+use App\DataTransferObjects\StudentData;
 use App\Models\Students;
 use App\Repositories\Contracts\StudentRepositoryInterface;
 use Illuminate\Support\Collection;
 
 class EloquentStudentRepository implements StudentRepositoryInterface
 {
-    public function create(array $data): Students
+    public function create(StudentData $studentData): Students
     {
-        return Students::create($data);
+        return Students::create((array) $studentData);
     }
 
     public function all(array $filters= []): Collection

@@ -2,38 +2,32 @@
 
 namespace Database\Factories;
 
+use App\Models\Students;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Students>
- */
 class StudentsFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = Students::class;
+
     public function definition(): array
     {
         return [
-            'lrnNumber'     => fake()->unique()->randomNumber(9),
-
-            'student_id'    => fake()->unique()->randomNumber(6),
-
-            'firstName'     => fake()->firstName(),
-
-            'lastName'      => fake()->lastName(),
-
-            'middleName'    => fake()->lastName(),
-
-            'suffix'        => fake()->randomElement(['Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X']),
-
-            'gender'        => fake()->randomElement(['male', 'female']),
-
-            'contactNumber' => fake()->regexify('09[0-9]{2}-[0-9]{3}-[0-9]{4}'),
-
-            'yearLevel'     => fake()->randomElement(['preSchool', 'elementary','juniorHighSchool','seniorHighSchool']),
+            'lrn_number'                        =>             $this->faker->unique()->optional()->numerify('##########'),
+            'student_id_number'                 =>             strtoupper('STU' . $this->faker->unique()->numerify('#####')),
+            'first_name'                        =>             $this->faker->firstName,
+            'middle_name'                       =>             $this->faker->optional()->firstName,
+            'last_name'                         =>             $this->faker->lastName,
+            'suffix'                            =>             $this->faker->optional()->suffix,
+            'date_of_birth'                     =>             $this->faker->dateTimeBetween('-20 years', '-5 years')->format('Y-m-d'),
+            'gender'                            =>             $this->faker->randomElement(['male', 'female']),
+            'year_level'                        =>             $this->faker->randomElement(['pre-elementary', 'elementary', 'junior_high', 'senior_high']),
+            'status'                            =>             $this->faker->randomElement(['active', 'inactive', 'graduated']),
+            'contact_number'                    =>             $this->faker->optional()->numerify('09#########'),
+            'is_discounted'                     =>             $this->faker->boolean,
+            'address'                           =>             $this->faker->optional()->address,
+            'created_by_user_id'                =>             null, 
+            'current_academic_year_id'          =>             null, 
         ];
     }
 }

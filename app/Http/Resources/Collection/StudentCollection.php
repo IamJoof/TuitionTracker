@@ -14,6 +14,25 @@ class StudentCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'data' => $this->collection->transform (function ($student) {
+                      return (new StudentResource($student))->toArray($request);
+            }),
+        ];
+    }
+
+    // This is for future pagination purpose only
+    public function with($request): array
+    {
+        return [
+            'meta' => [
+
+                'current_page'      =>          $this->currentPage(),
+                'last_page'         =>          $this->lastPage(),
+                'per_page'          =>          $this->perPage(),
+                'total'             =>          $this->total(),
+
+            ]
+        ];
     }
 }

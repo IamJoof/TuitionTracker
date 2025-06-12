@@ -2,13 +2,14 @@
 
 namespace App\Repositories\Contracts;
 
+use App\DataTransferObjects\StudentData;
 use App\Models\Students;
 use Illuminate\Support\Collection;
 
 interface StudentRepositoryInterface
 {
 
-    public function create(array $data): Students;
+    public function create(StudentData $studentData): Students;
     
     public function all(array $filters= []): Collection;
 

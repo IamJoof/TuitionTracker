@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\DataTransferObjects\StudentData;
 use App\Models\Students;
 use Carbon\Carbon;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use App\Repositories\Contracts\StudentRepositoryInterface;
 
@@ -17,15 +19,29 @@ class StudentService
     }
 
 
-    public function getStudents(array $filters= []): Collection
+    /**
+     * Retrieves a list of students, with optional filters.
+     * 
+     * @param array $filters
+     * 
+     * @return Collection
+     */
+    public function getStudents(array $filters= [], int $perPage = 15): LengthAwarePaginator
     {
-        return $this->studentRepository->all($filters);
+        $query = Students::query();
+
+        foreach ($filters as $column => $value) {
+            $query->where($column, $value);
+        }
+
+        return $query->paginate($perPage);
     }
 
-    public function createStudent(array $data): Students
+    public function createStudent(StudentData $data): Students
     {
         return $this->studentRepository->create($data);
     }
+    
 
     public function findStudentById(int $id): ?Students
     {
