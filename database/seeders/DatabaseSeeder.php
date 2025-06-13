@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin'
         ]);
 
-        // Create normal user
+        // Create normal user - tester
         User::factory()->create([
             'name' => 'Faculty User',
             'email' => 'user@example.com',

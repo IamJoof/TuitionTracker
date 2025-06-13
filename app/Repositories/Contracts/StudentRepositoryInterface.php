@@ -13,7 +13,7 @@ interface StudentRepositoryInterface
     
     public function all(array $filters= []): Collection;
 
-    public function findById(int $id): ?Students;
+    public function findById(int $id) : ?Students;
 
     public function findByStudentIdNumber (string $student_id_number): ?Students;
 
@@ -25,6 +25,7 @@ interface StudentRepositoryInterface
 
 
     public function delete (Students $student): bool;
+
 
 
     public function getDiscounted(): Collection;

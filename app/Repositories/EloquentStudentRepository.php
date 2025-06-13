@@ -23,9 +23,9 @@ class EloquentStudentRepository implements StudentRepositoryInterface
         })->get();
     }
 
-    public function findById(int $id): ?Students
+    public function findById(int $id) : ?Students
     {
-        return Students::where('id', $id)->first($id);
+        return Students::where('id', $id)->first('*');
     }
 
     public function findByLearnerReferenceNumber(string $lrn_number): ?Students
