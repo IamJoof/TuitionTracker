@@ -30,7 +30,7 @@ class EloquentStudentRepository implements StudentRepositoryInterface
 
     public function findByLearnerReferenceNumber(string $lrn_number): ?Students
     {
-        return Students::where('lrn_number', $lrn_number)->first($lrn_number);
+        return Students::where('lrn_number', $lrn_number)->first('*');
     }
 
     public function update (Students $students, array $data): Students
@@ -46,11 +46,11 @@ class EloquentStudentRepository implements StudentRepositoryInterface
 
     public function findByStudentIdNumber(string $student_id_number): ?Students
     {
-        return Students::where('student_id_number', $student_id_number)->first($student_id_number);
+        return Students::where('student_id_number', $student_id_number)->first(['*']);
     }
 
     public function getDiscounted(): Collection
     {
-        return Students::where('status', 'discounted')->get();
+        return Students::where('is_discounted', true)->get();
     }
 }

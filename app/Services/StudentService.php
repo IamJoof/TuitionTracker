@@ -68,10 +68,16 @@ class StudentService
         return $this->studentRepository->update($students, ['is_discounted' => false]);
     }
 
-    public function getDiscountedStudentsList(): Collection
-    {
+public function getDiscountedStudentsList(): Collection
+{
+    try {
         return $this->studentRepository->getDiscounted();
+    } catch (\Exception $e) {
+        \Log::error('Error retrieving discounted students: ' . $e->getMessage());
+        return collect();
     }
+}
+
 
     public function calculateStudentAge (Students $student): int
     {

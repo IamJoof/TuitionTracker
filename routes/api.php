@@ -23,6 +23,9 @@ Route::middleware('auth:sanctum')->group(function() {
 Route::prefix('students')->group(function() {
 
     Route::post('/', [App\Http\Controllers\API\StudentController::class, 'store']);
+    
+    Route::get('/discounted', [App\Http\Controllers\API\StudentController::class, 'getDiscountedStudents']);
+
 
     Route::get('{student}/age', [App\Http\Controllers\API\StudentController::class, 'calculateStudentAge']);
 
@@ -33,5 +36,6 @@ Route::prefix('students')->group(function() {
     Route::get('/', [App\Http\Controllers\API\StudentController::class, 'index']);
 
     Route::get('/{id}', [App\Http\Controllers\API\StudentController::class, 'show']);
+
     
 });

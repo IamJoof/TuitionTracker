@@ -26,8 +26,6 @@ interface StudentRepositoryInterface
 
     public function delete (Students $student): bool;
 
-
-
     public function getDiscounted(): Collection;
 }
 

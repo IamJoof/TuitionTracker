@@ -124,20 +124,25 @@ class StudentController extends Controller
 
     public function show($id) {
         try {
-            $student = $this->studentService->findStudentById($id);
+            $student = $this->studentService->findStudentById((int)$id);
 
-            if (!$student) {
+            if ($student === null) {
                 return response()->json([
+                    'student'      => $student,
                     'message' => 'This student does not exist in our records.'
                 ], 404);
             }
 
             return new StudentResource($student);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return response()->json([
                 'message' => 'An error occurred while retrieving the student.',
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+
+    public function getDiscountedStudents () {
+        return $this->studentService->getDiscountedStudentsList();
     }
 }
